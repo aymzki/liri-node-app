@@ -4,6 +4,7 @@ require("dotenv").config();
 var keys = require("./keys.js");
 var fs = require("fs");
 var request = require("request");
+var moment = require('moment');
 var Spotify = require('node-spotify-api');
 var axios = require("axios");
 //make log.txt file
@@ -15,6 +16,11 @@ log.setLevel('all');
 
 //fetch Spotify keys
 var spotify = new Spotify(keys.spotify);
+
+// Writes to the log.txt file
+var getArtistNames = function (artist) {
+    return artist.name;
+};
 
 //argv[2] is the command, argv[3] is input parameter ie. song 
 var command = process.argv[2];
@@ -61,26 +67,14 @@ function concertThis() {
     console.log(bandsUrl);
     //run request with axios to BandsInTown API
     axios.get(bandsUrl).then(
-        function (response) {
-            // If the request is successful = 200
-            if (!error && response.statusCode === 200) {
-                var body = JSON.parse(body);
+        function(response) {
+            for (var i = 0; i < response.data.length; i++) {
 
-                //Simultaneously output to console and log.txt via NPM simple-node-logger
-                log('================ Movie Info ================');
-                logO("Title: " + body.Title);
-                logOutput("Release Year: " + body.Year);
-                logOutput("IMdB Rating: " + body.imdbRating);
-                logOutput("Rotten Tomatoes Rating: " + body.Ratings[2].Value);
-                logOutput("Country: " + body.Country);
-                logOutput("Language: " + body.Language);
-                logOutput("Plot: " + body.Plot);
-                logOutput("Actors: " + body.Actors);
-                logOutput('==================END Movie Info=================');
-
-            } else {
-                console.log("There has been an error", error.message);
+                console.log("Venue Name: "+ response.data[i].venue.name);
+                console.log("Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
+                console.log("Date of the Event: " + moment(response.data[i].datetime).format("L"));
             }
+            
         }
     );
 }
@@ -88,7 +82,7 @@ function concertThis() {
 //spotify-this-song
 function spotifyThis(song) {
     if (!song) {
-        song = "The Sign";
+        song = "The Sign Ace Of Base";
     }
 
     spotify.search(
@@ -101,23 +95,25 @@ function spotifyThis(song) {
                 console.log("Error occurred: " + err);
                 return;
             }
+            else{
 
             var songData = data.tracks.items;
             //console.log(songData);
-            //console.log(songData[0]);
-            for (var i = 0; i < songData.length; i++) {
-                console.log("Artist: " + songData[i].artists[0]);
+            //console.log(songData[i].artists[0]);
+                //console.log("Artist: " + songData[i].artist);
+                // ** actual use console.log("Artist: " + songData.artists[0].name);
+                //console.log("artist(s): " + songData[0].artists[i].name);
                 console.log("Song: " + songData[i].name);
                 console.log("Preview URL: " + songData[i].preview_url);
                 console.log("Album: " + songData[i].album.name);
                 console.log("----------------------------");
 
-                //adds text to log.txt
-                // fs.appendFile('log.txt', songData.artists[0].name);
-                // fs.appendFile('log.txt', songData.name);
-                // fs.appendFile('log.txt', songData.preview_url);
-                // fs.appendFile('log.txt', songData.album.name);
-                // fs.appendFile('log.txt', "-----------------------");
+            //     //adds text to log.txt
+            //     // fs.appendFile('log.txt', songData.artists[0].name);
+            //     // fs.appendFile('log.txt', songData.name);
+            //     // fs.appendFile('log.txt', songData.preview_url);
+            //     // fs.appendFile('log.txt', songData.album.name);
+            //     // fs.appendFile('log.txt', "-----------------------");
             }
         });
 }
@@ -172,7 +168,8 @@ function doWhat() {
         if (error);
         console.log(data.toString());
         //split text with comma 
-        var cmds = data.toString().split(',');
+        var readArray = data.split("",");
+        
     });
 }
 
