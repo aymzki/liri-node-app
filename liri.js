@@ -67,40 +67,39 @@ function concertThis() {
     console.log(bandsUrl);
     //run request with axios to BandsInTown API
     axios.get(bandsUrl).then(
-        function(response) {
+        function (response) {
             for (var i = 0; i < response.data.length; i++) {
 
-                console.log("Venue Name: "+ response.data[i].venue.name);
+                console.log("Venue Name: " + response.data[i].venue.name);
                 console.log("Venue Location: " + response.data[i].venue.city + ", " + response.data[i].venue.country);
                 console.log("Date of the Event: " + moment(response.data[i].datetime).format("L"));
             }
-            
+
         }
     );
 }
 
 //spotify-this-song
-function spotifyThis(song) {
-    if (!song) {
-        song = "The Sign Ace Of Base";
-    }
+function spotifyThis() {
+
+    var thisSong= searchFor;
+   
 
     spotify.search(
         {
             type: "track",
-            query: song
+            query: thisSong
         },
         function (err, data) {
             if (err) {
                 console.log("Error occurred: " + err);
                 return;
             }
-            else{
-
-            var songData = data.tracks.items;
-            //console.log(songData);
-            //console.log(songData[i].artists[0]);
-                //console.log("Artist: " + songData[i].artist);
+            else {
+                var songData = data.tracks.items;
+                //console.log(songData);
+                //console.log(songData[i].artists[0]);
+                console.log("Artist: " + songData[i].album.artists[0].name);
                 // ** actual use console.log("Artist: " + songData.artists[0].name);
                 //console.log("artist(s): " + songData[0].artists[i].name);
                 console.log("Song: " + songData[i].name);
@@ -108,12 +107,12 @@ function spotifyThis(song) {
                 console.log("Album: " + songData[i].album.name);
                 console.log("----------------------------");
 
-            //     //adds text to log.txt
-            //     // fs.appendFile('log.txt', songData.artists[0].name);
-            //     // fs.appendFile('log.txt', songData.name);
-            //     // fs.appendFile('log.txt', songData.preview_url);
-            //     // fs.appendFile('log.txt', songData.album.name);
-            //     // fs.appendFile('log.txt', "-----------------------");
+                //     //adds text to log.txt
+                //     // fs.appendFile('log.txt', songData.artists[0].name);
+                //     // fs.appendFile('log.txt', songData.name);
+                //     // fs.appendFile('log.txt', songData.preview_url);
+                //     // fs.appendFile('log.txt', songData.album.name);
+                //     // fs.appendFile('log.txt', "-----------------------");
             }
         });
 }
@@ -163,14 +162,27 @@ function movieThis() {
 // takes text inside of random.txt then use it to call one of LIRI's commands
 
 function doWhat() {
+
     // Read random.txt file
     fs.readFile("random.txt", "utf8", function (error, data) {
-        if (error);
-        console.log(data.toString());
-        //split text with comma 
-        var readArray = data.split("",");
+        if (error) {
+            return console.log(error);
+        }
+
+        // Then split it by commas (to make it more readable)
+                var dataArr = data.split(",")
+                var doThis = dataArr[1].replace(/\"/g, "");
+                searchFor = doThis;
+                spotifyThis();
+                
+       
         
+
+        
+
     });
+
+
 }
 
 //call command at the end
