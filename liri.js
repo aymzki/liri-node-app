@@ -17,10 +17,6 @@ log.setLevel('all');
 //fetch Spotify keys
 var spotify = new Spotify(keys.spotify);
 
-// Writes to the log.txt file
-var getArtistNames = function (artist) {
-    return artist.name;
-};
 
 //argv[2] is the command, argv[3] is input parameter ie. song 
 var command = process.argv[2];
@@ -64,7 +60,7 @@ function concertThis() {
     //use BandsInTown API to get name of venue, venue location, date of event
     var artist = searchFor;
     var bandsUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
-    console.log(bandsUrl);
+  
     //run request with axios to BandsInTown API
     axios.get(bandsUrl).then(
         function (response) {

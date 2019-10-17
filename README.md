@@ -13,6 +13,7 @@ A command line Node app that returns data. LIRI stands for Language Interpretati
 
 Enter any of the following commands, along with a search term:
 * concert-this
+![Concert This](images/concertthis.jpg)
 * spotify-this-song
 * movie-this
 * do-what-it-says
