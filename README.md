@@ -13,8 +13,11 @@ A command line Node app that returns data. LIRI stands for Language Interpretati
 
 Enter any of the following commands, along with a search term:
 * concert-this
+When you enter concert-this with an artist name (this example is "concert-this Billie Eilish") an API call will be made to return data on the upcoming concert dates and venues, and locations the artist will be performing at.
 ![Concert This](images/concertthis.jpg)
 * spotify-this-song
+When you enter spotify-this-song with a song name (this example is "spotify-this-song Thriller") an axios call will be made to return data on songs of that title.
+![Spotify This](images/spotifythis.jpg)
 * movie-this
 * do-what-it-says
 

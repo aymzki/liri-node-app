@@ -120,7 +120,7 @@ function movieThis() {
     var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&apikey=trilogy";
 
     // test queryUrl
-    console.log(queryUrl);
+    //console.log(queryUrl);
 
     //if no input
     if (!movieName) {
