@@ -96,11 +96,8 @@ function spotifyThis() {
             }
             else {
                 var songData = data.tracks.items;
-                //console.log(songData);
-                //console.log(songData[i].artists[0]);
+                
                 console.log("Artist: " + songData[i].album.artists[0].name);
-                // **console.log("Artist: " + songData.artists[0].name);
-                //console.log("artist(s): " + songData[0].artists[i].name);
                 console.log("Song: " + songData[i].name);
                 console.log("Preview URL: " + songData[i].preview_url);
                 console.log("Album: " + songData[i].album.name);

@@ -18,9 +18,15 @@ Enter any of the following commands, along with a search term:
 * spotify-this-song  
   When you enter spotify-this-song with a song name (this example is "spotify-this-song Thriller") an axios call will be made to return data on songs of that title.
 ![Spotify This](images/spotifythis.jpg)
+* spotify-this-song without query
+  On the other hand, if you only enter spotify-this-song without a song name it will make an axios call returning "The Sign" by Ace of Base as the song data.
+![Spotify Default](images/spotifydefault.jpg)
 * movie-this  
   When you enter movie-this with a movie title (this example is "movie-this Moana") an axios call will be made to return data on a movie of that title.
 ![Movie This](images/moviethis.jpg)
+* movie-this without query
+  On the other hand, if you only enter movie-this without a title it will make an axios call returning "Mr. Nobody" as the movie data.
+![Movie Default](images/moviedefault.jpg)  
 * do-what-it-says
    When you enter do-what-it-says an axios call will be made to return data based on the command written in the file random.txt shown below.
 ![Do What](images/dowhat.jpg)
